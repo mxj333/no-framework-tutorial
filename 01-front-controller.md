@@ -1,20 +1,21 @@
-[next >>](02-composer.md)
+[下一篇>>](02-composer.md)
 
-### Front Controller
+### 前端控制器
 
-A [front controller](http://en.wikipedia.org/wiki/Front_Controller_pattern) is a single point of entry for your application.
+一个 [前端控制器](http://en.wikipedia.org/wiki/Front_Controller_pattern) 是进入您的应用程序的一个点。
 
-To start, create an empty directory for your project. You also need an entry point where all requests will go to. This means you will have to create an `index.php` file.
+要开始，为项目创建一个空目录。您还需要一个所有请求将进入的入口点。这意味着你必须创建一个`index.php`文件。
 
-A common way to do this is to just put the `index.php` in the root folder of the projects. This is also how some frameworks do it. Let me explain why you should not do this.
+一个常见的方法是`index.php`将项目的根文件夹放在。这也是一些框架的做法。让我解释为什么你不应该这样做。
 
-The `index.php` is the starting point, so it has to be inside the web server directory. This means that the web server has access to all subdirectories. If you set things up properly, you can still prevent it from accessing your subfolders where your application files are.
+这`index.php`是起点，所以它必须在Web服务器目录中。这意味着Web服务器可以访问所有子目录。如果您正确设置，您仍然可以阻止它访问应用程序文件所在的子文件夹。
 
-But sometimes things don't go according to plan. And if something goes wrong and your files are set up as above, your whole application source code could be exposed to visitors. I won't have to explain why this is not a good thing.
+但有时候事情根本不会计划。如果出现问题，您的文件设置如上，您的整个应用程序源代码可能会暴露给访问者。我不必解释为什么这不是一件好事。
 
-So instead of doing that, create a folder in your project folder called `public`. This is a good time to create an `src` folder for your application, also in the project root folder.
+所以，而不是这样做，在你的项目文件夹中创建一个文件夹`public`。这是为应用程序创建`src`文件夹的好时机，也是在项目根文件夹中。
 
-Inside the `public` folder you can now create your `index.php`. Remember that you don't want to expose anything here, so put just the following code in there:
+`public`您可以在文件夹中创建您的文件`index.php`。请记住，您不想在此处显示任何内容，因此只需将以下代码放在其中：
+
 
 ```php
 <?php declare(strict_types = 1); 
@@ -22,15 +23,15 @@ Inside the `public` folder you can now create your `index.php`. Remember that yo
 require __DIR__ . '/../src/Bootstrap.php';
 ```
 
-`__DIR__` is a [magic constant](http://php.net/manual/en/language.constants.predefined.php) that contains the path of the directory. By using it, you can make sure that the `require` always uses the same relative path to the file it is used in. Otherwise, if you call the `index.php` from a different folder it will not find the file.
+`__DIR__`是包含目录路径的[魔术常数](http://php.net/manual/en/language.constants.predefined.php)。通过使用它，您可以确保`require`始终使用与使用的文件相同的相对路径。否则，如果您`index.php`从不同的文件夹调用它将找不到该文件。
 
-`declare(strict_types = 1);` sets the current file to [strict typing](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration.strict). In this tutorial we are going to use this for all PHP files. This means that you can't just pass an integer as a parameter to a method that requires a string. If you don't use strict mode, it would be automatically casted to the required type. With strict mode, it will throw an Exception if it is the wrong type.
+`declare(strict_types = 1);` 将当前文件设置为[严格打字](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration.strict)。在本教程中，我们将使用所有PHP文件。这意味着您不能将整数作为参数传递给需要字符串的方法。如果不使用严格模式，它将被自动转换为所需类型。使用严格的模式，如果是错误的类型，它将抛出异常。
 
-The `Bootstrap.php` will be the file that wires your application together. We will get to it shortly.
+这 `Bootstrap.php` 将是将应用程序连接在一起的文件。我们很快就会到。
 
-The rest of the public folder is reserved for your public asset files (like JavaScript files and stylesheets).
+公用文件夹的其余部分保留给您的公共资产文件（如JavaScript文件和样式表）。
 
-Now navigate inside your `src` folder and create a new `Bootstrap.php` file with the following content:
+现在，在您的`src`文件夹内导航，并创建一个`Bootstrap.php`包含以下内容的新文件：
 
 ```php
 <?php declare(strict_types = 1);
@@ -38,16 +39,16 @@ Now navigate inside your `src` folder and create a new `Bootstrap.php` file with
 echo 'Hello World!';
 ```
 
-Now let's see if everything is set up correctly. Open up a console and navigate into your projects `public` folder. In there type `php -S localhost:8000` and press enter. This will start the built-in webserver and you can access your page in a browser with `http://localhost:8000`. You should now see the 'hello world' message.
+现在我们来看看一切是否正确设置。打开控制台并导航到您的项目`public`文件夹。在那里键入`php -S localhost:8000`，然后按回车。这将启动内置的Web服务器，您可以在浏览器中访问您的页面`http://localhost:8000`。你现在应该看到'Hello World!'的信息。
 
-If there is an error, go back and try to fix it. If you only see a blank page, check the console window where the server is running for errors.
+如果有错误，请返回并尝试修复。如果您只看到一个空白页面，请检查运行服务器的控制台窗口是否有错误。
 
-Now would be a good time to commit your progress. If you are not already using Git, set up a repository now. This is not a Git tutorial so I won't go over the details. But using version control should be a habit, even if it is just for a tutorial project like this.
+现在是一个很好的时间来承诺你的进步。如果您还没有使用Git，请立即建立存储库。这不是Git教程，所以我不会详细介绍。但使用版本控制应该是一种习惯，即使它只是一个这样的教程项目。
 
-Some editors and IDE's put their own files into your project folders. If that is the case, create a `.gitignore` file in your project root and exclude the files/directories. Below is an example for PHPStorm:
+一些编辑器和IDE将自己的文件放入您的项目文件夹。如果是这样，请`.gitignore`在项目根目录中创建一个文件，并排除文件/目录。以下是PHPStorm的示例：
 
 ```
 .idea/
 ```
 
-[next >>](02-composer.md)
+[下一篇 >>](02-composer.md)
