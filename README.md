@@ -16,7 +16,7 @@
 
 所以让我们马上开始[第一部分](01-front-controller.md)。
 
-### Parts
+### 章节
 
 1. [控制器](01-front-controller.md)
 2. [Composer](02-composer.md)
