@@ -1,4 +1,4 @@
-[<< previous](01-front-controller.md) | [next >>](03-error-handler.md)
+[<< 上一篇](01-front-controller.md) | [下一篇 >>](03-error-handler.md)
 
 ### Composer
 
